@@ -1,2 +1,2 @@
 # dtylam.github.io
-redirection
+my website... for now
