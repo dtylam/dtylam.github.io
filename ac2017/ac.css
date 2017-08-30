@@ -115,6 +115,7 @@ p.right-lean {
 .title-banner .col-1-2 > h2 {
   color: #666;
   text-align: right;
+  line-height: 1.5;
   white-space: nowrap;
 }
 
