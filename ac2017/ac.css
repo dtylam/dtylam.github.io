@@ -228,12 +228,12 @@ p.right-lean {
 /* Media Queries
 -------------------------------------------- */
 /* desktop */
-@media screen and (max-width: 1170px), screen and (max-height: 800px) {
+/* @media screen and (max-width: 1170px), screen and (max-height: 800px) {
   
-}
+} */
 
 /* phones */
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1080px) {
   
   .title-banner .col-1-2 { 
     /* float: none; */
