@@ -4,7 +4,7 @@ body {
 
 h1, h2, h3, h4, form {
     text-align: center;
-    line-height: 1.75;
+    line-height: 1.5;
 }
 
 div.scrollmenu {
@@ -25,10 +25,14 @@ div.scrollmenu button:hover {
     background-color: #888;
 } */
 
+div .row {
+    margin: 32px 0;
+}
+
 div .card {
     position: relative;
     padding: 3%;
-    min-height: 300px;
+    min-height: 200px;
     border-radius: 10px;
     background: #fff;
     -webkit-box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
@@ -37,12 +41,12 @@ div .card {
 
 div .card p {
     text-align: center;
-    line-height: 1.75;
+    line-height: 1.25;
 }
 
 div .card table, td {
     text-align: center;
-    line-height: 1.75;
+    line-height: 1.25;
     width: 100%;
     border: 0;
     border-collapse: collapse;

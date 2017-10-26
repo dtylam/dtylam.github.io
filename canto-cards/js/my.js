@@ -34,37 +34,61 @@ $(document).ready(function () {
             //test
             //$(".container").append(vocabs[0].word_en);
 
-            //populate with rows            
+            //populate with cards            
             $.each(vocabs, function(index, vocab){
-                var $cardrow = $("\
-                <div class='row'> \
-                    <div class= 'six columns card' id='card_en'> \
-                        <h2 id='word_en'>" + vocab.word_en + "</h2> \
-                        <h2 id='word_canto'>" + vocab.word_canto + "</h2> \
-                        <h4 id='jyutping'>" + vocab.jyutping + "</h4> \
-                        <p id='tag'>" + vocab.tags[0].tag + "</p> \
+                var newcard = $("\
+                    <div class= 'six columns card'> \
+                        <h2 class='word_en'>" + vocab.word_en + "</h2> \
+                        <h2 class='word_canto'>" + vocab.word_canto + "</h2> \
+                        <h4 class='jyutping'>" + vocab.jyutping + "</h4> \
+                        <p class='tag'>" + vocab.tags[0].tag + "</p> \
                     </div> \
-                    <div class= 'six columns card'  id='card_can'> \
-                        <h2>廣東話</h2> \
-                        <p id='word_can'></p> \
-                        <p id='jyutping'></p> \
-                    </div> \
-                </div> \
                 ");
-                $(".container").append($cardrow);
+                newcard.css('background-color', colors[Math.floor(Math.random() * colors.length)]);
+
+                //decide if new row is needed or not
+                if (index % 2 == 0){
+                    var newrow = $("<div class='row'></div>");
+                    newrow.append(newcard);
+                    $(".container").append(newrow);
+                }
+                else{
+                    $(".container").children().last().append(newcard);
+                }
             });
 
+            //auto hide canto
+            $('.word_canto').hide();
+            $('.jyutping').hide();
+
+            // click any card to flip
+            $('.card').click(function(){
+                //change card colour 
+                $(this).css('background-color', 
+                    colors[Math.floor(Math.random() * colors.length)]);
+                //decide flip
+                if ($('.word_canto', this).is(':hidden')){
+                    $('.word_canto', this).show();                    
+                    $('.jyutping', this).show();                    
+                    $('.word_en', this).hide();
+                }
+                else if ($('.word_en', this).is(':hidden')){
+                    $('.word_en', this).show();
+                }
+                else {
+                    $('.word_canto', this).hide();
+                    $('.jyutping', this).hide();
+                }
+            });
         });
-       
+
     });
 
-    // click any card to flip
+    // at launch: click any card to change color
     $('.card').click(function(){
         //change card colour 
         $(this).css('background-color', 
             colors[Math.floor(Math.random() * colors.length)]);
     });
   })
-
-
 
