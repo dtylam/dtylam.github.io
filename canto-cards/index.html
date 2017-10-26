@@ -11,30 +11,23 @@
     <title>Canto Cards</title>
 </head>
 <body>
-    <h1>Canto Cards</h1>
-    <div class="row searchbar">
-        <form>
-            Search (English): <input type="text" name="search_term"/> <input type="submit" value="Go"/>
-        </form>
-    </div>
     <noscript><h4>Please enable JavaScript in your browser!</h4></noscript>
-    <div class="row">
-        <div class= "one-half column card" id="card_en">
-            <h2>English</h2>
-            <p id="word_en"></p>
-            <!-- <table>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>  -->
-        </div>
-        <div class= "one-half column card"  id="card_can">
-            <h2>廣東話</h2>
-            <p id="word_can"></p>
-            <p id="jyutping"></p>
-            <!-- <table></table> -->
+    <h1>Canto Cards</h1>
+    <div class="scrollmenu">
+        <input type="button" id="menuitem" value="session1"/>
+        <!-- <button class="menuitem" href="#session1">Session 1</button> -->
+    </div>
+    <!-- <form>
+        Search (English): <input type="text" name="search_term"/> <input type="submit" value="Go"/>
+    </form> -->    
+    <div class="container">
+        <div class="row">
+            <div class= "six columns card" id="card_en">
+                <h2>English</h2>
+            </div>
+            <div class= "six columns card"  id="card_can">
+                <h2>廣東話</h2>
+            </div>
         </div>
     </div>
 </body>
