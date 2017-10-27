@@ -9,6 +9,7 @@ h1, h2, h3, h4, form {
 
 div.scrollmenu {
     /* background-color: #555; */
+    text-align: center;
     overflow: auto;
     white-space: nowrap;
     margin: 0 0 2% 0;
@@ -26,12 +27,14 @@ div.scrollmenu button:hover {
 } */
 
 div .row {
-    margin: 32px 0;
+    /* margin: 32px 0; */
 }
 
 div .card {
     position: relative;
     padding: 3%;
+    margin-top: 16px;
+    margin-bottom: 16px;    
     min-height: 200px;
     border-radius: 10px;
     background: #fff;
