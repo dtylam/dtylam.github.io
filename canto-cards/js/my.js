@@ -2,7 +2,8 @@
 var colors = [  "#c2e1e5", "#7a8b9e", "#a9ccbf", 
                 "#efd0cc", "#d7c8de", "#d8c8af", 
                 "#f78733", "#c0b283", "#eeaa7b",
-                "#66b9bf", "#e37222", "#96858f"];
+                "#66b9bf", "#e37222", "#96858f",
+                "#acc3ff", "#c6ecb7"];
                 
 //ready function
 $(document).ready(function () {
@@ -22,7 +23,7 @@ $(document).ready(function () {
     });
 
     // click session
-    $('#menuitem').click(function(){
+    $('.menuitem').click(function(){
         //empty original container
         $(".container").empty();
 

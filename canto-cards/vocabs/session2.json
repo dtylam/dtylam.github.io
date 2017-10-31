@@ -1,6 +1,6 @@
 {
     "session": {
-        "created": "2017-10-26T21:39:58.767Z",
+        "created": "2017-11-02T21:39:58.767Z",
         "vocabs": [
             {
                 "word_en": "No Good (Don't)",
@@ -53,9 +53,19 @@
                 ]
             },
             {
-                "word_en": "Drink Tea (w/ Dim Sum)",
-                "word_canto": "飲茶",
-                "jyutping": "jam2 caa4",
+                "word_en": "Tea",
+                "word_canto": "茶",
+                "jyutping": "caa4",
+                "tags": [
+                    {
+                        "tag": "drink"
+                    }
+                ]
+            },
+            {
+                "word_en": "Dim Sum",
+                "word_canto": "點心",
+                "jyutping": "dim2 sam1",
                 "tags": [
                     {
                         "tag": "food"
