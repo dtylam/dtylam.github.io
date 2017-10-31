@@ -1,0 +1,67 @@
+{
+    "session": {
+        "created": "2017-10-26T21:39:58.767Z",
+        "vocabs": [
+            {
+                "word_en": "No Good (Don't)",
+                "word_canto": "唔好",
+                "jyutping": "m4 hou2",
+                "tags": [
+                    {
+                        "tag": "colloquial"
+                    }
+                ]
+            },
+            {
+                "word_en": "I want (to)",
+                "word_canto": "我想",
+                "jyutping": "ngo5 soeng2",
+                "tags": [
+                    {
+                        "tag": "colloquial"
+                    }
+                ]
+            },
+            {
+                "word_en": "You need (to)",
+                "word_canto": "你要",
+                "jyutping": "nei5 jiu3",
+                "tags": [
+                    {
+                        "tag": "colloquial"
+                    }
+                ]
+            },
+            {
+                "word_en": "Go out (to the street)",
+                "word_canto": "出街",
+                "jyutping": "ceot1 gaai1",
+                "tags": [
+                    {
+                        "tag": "colloquial"
+                    }
+                ]
+            },
+            {
+                "word_en": "Eat Rice",
+                "word_canto": "食飯",
+                "jyutping": "sik6 faan6",
+                "tags": [
+                    {
+                        "tag": "food"
+                    }
+                ]
+            },
+            {
+                "word_en": "Drink Tea (w/ Dim Sum)",
+                "word_canto": "飲茶",
+                "jyutping": "jam2 caa4",
+                "tags": [
+                    {
+                        "tag": "food"
+                    }
+                ]
+            }
+        ]
+    }
+}
