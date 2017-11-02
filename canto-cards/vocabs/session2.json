@@ -3,16 +3,6 @@
         "created": "2017-11-02T21:39:58.767Z",
         "vocabs": [
             {
-                "word_en": "No Good (Don't)",
-                "word_canto": "唔好",
-                "jyutping": "m4 hou2",
-                "tags": [
-                    {
-                        "tag": "colloquial"
-                    }
-                ]
-            },
-            {
                 "word_en": "I want (to)",
                 "word_canto": "我想",
                 "jyutping": "ngo5 soeng2",
@@ -33,12 +23,22 @@
                 ]
             },
             {
+                "word_en": "No Good (Don't)",
+                "word_canto": "唔好",
+                "jyutping": "m4 hou2",
+                "tags": [
+                    {
+                        "tag": "colloquial"
+                    }
+                ]
+            },
+            {
                 "word_en": "Go out (to the street)",
                 "word_canto": "出街",
                 "jyutping": "ceot1 gaai1",
                 "tags": [
                     {
-                        "tag": "colloquial"
+                        "tag": "activity"
                     }
                 ]
             },

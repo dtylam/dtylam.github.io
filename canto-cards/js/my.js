@@ -8,7 +8,9 @@ var colors = [  "#c2e1e5", "#7a8b9e", "#a9ccbf",
 //ready function
 $(document).ready(function () {
     //change card colour 
-    $(".card").css('background-color', 
+    $("#card_en").css('background-color', 
+        colors[Math.floor(Math.random() * colors.length)]);
+    $("#card_can").css('background-color', 
         colors[Math.floor(Math.random() * colors.length)]);
 
     // //set up MIME type
