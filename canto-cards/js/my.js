@@ -58,6 +58,11 @@ $(document).ready(function () {
                 }
             });
 
+            //append comments
+            var commentrow = $("<div class='row comment'></div>");
+            commentrow.append("<p>" + data.session.comment + "</p>");
+            $(".container").append(commentrow);
+
             //auto hide canto
             $('.word_canto').hide();
             $('.jyutping').hide();
