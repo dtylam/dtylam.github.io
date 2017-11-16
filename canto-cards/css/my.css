@@ -7,10 +7,6 @@ h1, h2, h3, h4, form {
     line-height: 1.5;
 }
 
-img {
-    width: 90%;
-}
-
 p {
     text-align: center;
 }
@@ -64,4 +60,14 @@ div .card table, td {
 
 div .comment {
     margin-top: 4%;
+}
+
+div .two > img {
+    max-width: none;
+    display: block;
+    margin: 0 auto;
+}
+
+div .two > p {
+    margin: 12px auto;
 }
