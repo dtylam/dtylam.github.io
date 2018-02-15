@@ -1,0 +1,73 @@
+body {
+    margin: 1% 2%;
+}
+
+h1, h2, h3, h4, form {
+    text-align: center;
+    line-height: 1.5;
+}
+
+p {
+    text-align: center;
+}
+
+div.scrollmenu {
+    /* background-color: #555; */
+    text-align: center;
+    overflow: auto;
+    white-space: nowrap;
+    margin: 0 0 2% 0;
+}
+
+/* div.scrollmenu button {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+}
+
+div.scrollmenu button:hover {
+    background-color: #888;
+} */
+
+div .row {
+    /* margin: 32px 0; */
+}
+
+div .card {
+    position: relative;
+    padding: 3%;
+    margin-top: 16px;
+    margin-bottom: 16px;    
+    min-height: 200px;
+    border-radius: 10px;
+    background: #fff;
+    -webkit-box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
+    box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
+}
+
+div .card p {
+    line-height: 1.25;
+}
+
+div .card table, td {
+    text-align: center;
+    line-height: 1.25;
+    width: 100%;
+    border: 0;
+    border-collapse: collapse;
+}
+
+div .comment {
+    margin-top: 4%;
+}
+
+div .two > img {
+    max-width: none;
+    display: block;
+    margin: 0 auto;
+}
+
+div .two > p {
+    margin: 12px auto;
+}
