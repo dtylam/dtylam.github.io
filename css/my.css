@@ -3,7 +3,7 @@
 */
 
 body {
-    margin: 5% 10%;
+    margin: 4% 8%;
 }
 
 div {
@@ -21,7 +21,7 @@ div.pure-g {
 img {
     width: 80%;
     max-width: 6rem;
-    margin: 12px auto;
+    margin: auto;
 }
 
 #face {
