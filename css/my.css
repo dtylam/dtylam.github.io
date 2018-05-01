@@ -1,49 +1,50 @@
 /*
-* Donald Ty Lam 2016
+* Donald Ty Lam 2018
 */
 
-#hometiles{
-    width: 100%;
-    font-size: 800%;
+body {
+    margin: 5% 10%;
+}
+
+div {
     text-align: center;
 }
 
-img{
-    width: 70%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+div.title {
+    text-align: left;
 }
 
-.face {
-    /*display: inline;*/
-    margin: auto auto;
-    width: 160px;
-    height: 160px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    /*float: right;*/
-    overflow: hidden;
+div.pure-g {
+    margin: 3rem 0;
+}
+
+img {
+    width: 80%;
+    max-width: 6rem;
+    margin: 12px auto;
+}
+
+#face {
     border-radius: 50%;
+    max-width: 9rem;
 }
 
-h1{
-    font-size: 200%;
+h1 {
+    font-size: 175%;
 }
 
-h3{
-    margin-top: 25%;
-    color: midnightblue;
+h3 {
+    color: dimgrey;
 }
 
-footer{
+footer {
     margin-bottom: 2%;
     text-align: center;
 }
 
-a{
-    text-decoration: none !important;    
+a {
+    margin: auto;
+    text-decoration: none;
 }
 
 a:link {
@@ -51,7 +52,7 @@ a:link {
 }
 
 a:visited {
-    color: darkgrey;
+    color: dimgrey;
 }
 
 a:hover {
@@ -62,20 +63,32 @@ a:active {
     color: inherit;
 }
 
-.fadeIn{
-  color: black;
-  animation-name: fadeIn;
+hr {
+    margin: 36px 0;
 }
-.t4s{
-  animation-duration: 4s;
+
+.fadeIn {
+    color: black;
+    animation-name: fadeIn;
 }
-.t8s{
-  animation-duration: 8s;
+
+.t4s {
+    animation-duration: 4s;
 }
-.t12s{
-  animation-duration: 12s;
+
+.t8s {
+    animation-duration: 8s;
 }
+
+.t12s {
+    animation-duration: 12s;
+}
+
 @keyframes fadeIn {
-    from {color: white;}
-    to {color: black;}
+    from {
+        color: white;
+    }
+    to {
+        color: black;
+    }
 }
