@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
-    <title>TfL Telescope</title>
+    <title>Tube Telescope</title>
     <!-- Vue.js development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- Vue.js production version, optimized for size and speed -->
@@ -33,24 +33,72 @@
         </md-toolbar>
         <!-- Middle Page -->
         <div id="page">
-
+            <!-- stationView -->
+            <div v-if="focus == 0" id="stationView">
+                <md-autocomplete class="dropdown" md-layout="box" v-model="lineView.selectedLine" :md-options="linesList.map(line => line.name)">
+                    <label>Line</label>
+                </md-autocomplete>
+            </div>
+            <!-- trainIdView -->
+            <div v-else-if="focus == 1" id="trainIdView">
+                <md-field md-clearable>
+                    <md-icon>search</md-icon>
+                    <label>Train ID</label>
+                    <md-input v-model="trainIdView.enteredId" maxlength="4"></md-input>
+                </md-field>
+            </div>
+            <!-- lineView -->
+            <div v-else id="lineView">
+                <md-autocomplete class="dropdown" md-layout="box" v-model="lineView.selectedLine" :md-options="linesList.map(line => line.name)">
+                    <label>Line</label>
+                </md-autocomplete>
+            </div>
         </div>
         <!-- Bottom Bar -->
         <md-bottom-bar id="bottom-bar">
-            <md-bottom-bar-item to="/components/bottom-bar/home" md-label="By Station" md-icon="departure_board"></md-bottom-bar-item>
-            <md-bottom-bar-item to="/components/bottom-bar/posts" md-label="By TrainID" md-icon="directions_subway"></md-bottom-bar-item>
-            <md-bottom-bar-item to="/components/bottom-bar/favorites" md-label="By Line" md-icon="line_weight"></md-bottom-bar-item>
+            <md-bottom-bar-item @click="focus = 0" md-label="By Station" md-icon="departure_board"></md-bottom-bar-item>
+            <md-bottom-bar-item @click="focus = 1" md-label="By TrainID" md-icon="directions_subway"></md-bottom-bar-item>
+            <md-bottom-bar-item @click="focus = 2" md-label="By Line" md-icon="line_weight"></md-bottom-bar-item>
         </md-bottom-bar>
     </div>
 
     <!-- Vue.js main logic -->
     <script>
         Vue.use(VueMaterial.default)
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                // Focus: which view is chosen at bottom bar:
+                // 0: by station; 1: by trainID; 2: by line
+                focus: 0,
+                linesList: [],
+                stationsList: [],
+                // Views: the objects containing data for a view
+                stationView: {
 
-        new Vue({
-            el: '#app'
+                },
+                trainIdView: {
+                    enteredId: ""
+                },
+                lineView: {
+                    selectedLine: ""
+                }
+            },
+            created: function () { this.getBasics() },
+            methods: {
+                getBasics: function () {
+                    const API = "https://api.tfl.gov.uk/"
+                    // Fetch tube lines info: https://api.tfl.gov.uk/Line/Mode/tube
+                    fetch(API + "Line/Mode/tube", {
+                        method: "get"
+                    }).then(response => response.json())
+                        .then(json => { this.linesList = json })
+                },
+
+            }
         })
     </script>
 </body>
+<!-- https://api.tfl.gov.uk/ -->
 
 </html>
