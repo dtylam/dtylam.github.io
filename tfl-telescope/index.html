@@ -56,16 +56,12 @@
                     <div v-else>
                         <md-card v-for="r in vehicleIdView.results">
                             <md-card-header>
-                                <div class="md-title">{{r.vehicleId}} ({{r.lineName}})</div>
-                                <div class="md-subhead">{{r.currentLocation}}</div>
+                                <div class="md-title">{{r.vehicleId}}: {{r.currentLocation}}</div>
+                                <div class="md-subhead">{{r.lineName}} Line towards {{r.towards}}</div>
                             </md-card-header>
                             <md-card-content>
-                                <p><b>stationName:</b> {{r.stationName}}</p>
-                                <p><b>platformName:</b> {{r.platformName}}</p>
-                                <p><b>destinationName:</b> {{r.destinationName}}</p>
-                                <p><b>timeToStation:</b> {{r.timeToStation}}</p>
-                                
-                                <p><b>towards:</b> {{r.towards}}</p>
+                                <p><b>Approaching:</b> {{r.stationName}} ({{r.platformName}})</p>
+                                <p><b>timeToStation:</b> {{timeConversion(r.timeToStation)}}</p>
                             </md-card-content>
                         </md-card>
                         <span v-if="vehicleIdView.error" class="md-error">API error: Tube line and Vehicle ID are
@@ -143,6 +139,12 @@
                             this.vehicleIdView.results = json;
                             this.vehicleIdView.loading = false;
                         })
+                },
+                timeConversion: function (timeInSec) {
+                    var min = Math.floor(timeInSec / 60);
+                    var sec = timeInSec - min * 60;
+                    if (min == 0) return sec + "s"
+                    else return min + "m " + sec + "s"
                 }
             }
         })
