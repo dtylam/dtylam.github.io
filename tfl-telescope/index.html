@@ -19,6 +19,10 @@
     <script src="https://unpkg.com/vue-material@beta"></script>
     <!-- My own CSS -->
     <link rel="stylesheet" href="my.css">
+    <!-- Web app manifest -->
+    <link rel="manifest" href="manifest.webmanifest">
+    <!-- favicon -->
+    <link rel="icon" href="img/tflclock96.png">
 </head>
 
 
@@ -27,38 +31,67 @@
         <!-- Top Bar -->
         <md-toolbar id="top-bar">
             <h3 class="md-title" style="flex: 1">TfL Telescope</h3>
-            <md-button class="md-icon-button">
+            <md-button @click="vehicleIdQuery()" class="md-icon-button">
                 <md-icon>refresh</md-icon>
             </md-button>
         </md-toolbar>
         <!-- Middle Page -->
         <div id="page">
-            <!-- stationView -->
-            <div v-if="focus == 0" id="stationView">
-                <md-autocomplete class="dropdown" md-layout="box" v-model="lineView.selectedLine" :md-options="linesList.map(line => line.name)">
+            <!-- vehicleIdView -->
+            <div v-if="focus == 0" id="vehicleIdView">
+                <!-- <md-autocomplete class="fullwidth" md-layout="box" v-model="vehicleIdView.selectedLine" :md-options="linesList.map(line => line.name)">
                     <label>Line</label>
-                </md-autocomplete>
-            </div>
-            <!-- trainIdView -->
-            <div v-else-if="focus == 1" id="trainIdView">
+                </md-autocomplete> -->
                 <md-field md-clearable>
                     <md-icon>search</md-icon>
-                    <label>Train ID</label>
-                    <md-input v-model="trainIdView.enteredId" maxlength="4"></md-input>
+                    <label>Vehicle ID</label>
+                    <md-input v-model="vehicleIdView.enteredId" maxlength="7"></md-input>
+                    <!-- <span class="md-error">Vehicle ID is a required input</span> -->
                 </md-field>
+                <md-button @click="vehicleIdQuery()" class="md-raised md-primary fullwidth">Find</md-button>
+                <div class="results md-scrollbar">
+                    <div v-if="vehicleIdView.loading">
+                        <md-progress-spinner class="md-accent" md-mode="indeterminate"></md-progress-spinner>
+                    </div>
+                    <div v-else>
+                        <md-card v-for="r in vehicleIdView.results">
+                            <md-card-header>
+                                <div class="md-title">{{r.vehicleId}} ({{r.lineName}})</div>
+                                <div class="md-subhead">{{r.currentLocation}}</div>
+                            </md-card-header>
+                            <md-card-content>
+                                <p><b>stationName:</b> {{r.stationName}}</p>
+                                <p><b>platformName:</b> {{r.platformName}}</p>
+                                <p><b>destinationName:</b> {{r.destinationName}}</p>
+                                <p><b>timeToStation:</b> {{r.timeToStation}}</p>
+                                
+                                <p><b>towards:</b> {{r.towards}}</p>
+                            </md-card-content>
+                        </md-card>
+                        <span v-if="vehicleIdView.error" class="md-error">API error: Tube line and Vehicle ID are
+                            required
+                            inputs.</span>
+                    </div>
+                </div>
             </div>
-            <!-- lineView -->
-            <div v-else id="lineView">
-                <md-autocomplete class="dropdown" md-layout="box" v-model="lineView.selectedLine" :md-options="linesList.map(line => line.name)">
+            <!-- stationView -->
+            <!-- <div v-else-if="focus == 1" id="stationView">
+                <md-autocomplete class="fullwidth" md-layout="box" v-model="lineView.selectedLine" :md-options="linesList.map(line => line.name)">
                     <label>Line</label>
                 </md-autocomplete>
-            </div>
+            </div> -->
+            <!-- lineView -->
+            <!-- <div v-else id="lineView">
+                <md-autocomplete class="fullwidth" md-layout="box" v-model="lineView.selectedLine" :md-options="linesList.map(line => line.name)">
+                    <label>Line</label>
+                </md-autocomplete>
+            </div> -->
         </div>
         <!-- Bottom Bar -->
         <md-bottom-bar id="bottom-bar">
-            <md-bottom-bar-item @click="focus = 0" md-label="By Station" md-icon="departure_board"></md-bottom-bar-item>
-            <md-bottom-bar-item @click="focus = 1" md-label="By TrainID" md-icon="directions_subway"></md-bottom-bar-item>
-            <md-bottom-bar-item @click="focus = 2" md-label="By Line" md-icon="line_weight"></md-bottom-bar-item>
+            <md-bottom-bar-item @click="focus = 0" md-label="By Vehicle ID" md-icon="directions_subway"></md-bottom-bar-item>
+            <!-- <md-bottom-bar-item @click="focus = 1" md-label="By Station" md-icon="departure_board"></md-bottom-bar-item> -->
+            <!-- <md-bottom-bar-item @click="focus = 2" md-label="By Line" md-icon="line_weight"></md-bottom-bar-item> -->
         </md-bottom-bar>
     </div>
 
@@ -69,32 +102,48 @@
             el: '#app',
             data: {
                 // Focus: which view is chosen at bottom bar:
-                // 0: by station; 1: by trainID; 2: by line
+                // 0: by station; 1: by vehicleID; 2: by line
                 focus: 0,
-                linesList: [],
-                stationsList: [],
+                // linesList: [],
+                // stationsList: [],
                 // Views: the objects containing data for a view
-                stationView: {
+                // stationView: {
 
+                // },
+                vehicleIdView: {
+                    // selectedLine: "",
+                    enteredId: "",
+                    loading: false,
+                    results: [],
+                    error: false
                 },
-                trainIdView: {
-                    enteredId: ""
-                },
-                lineView: {
-                    selectedLine: ""
-                }
+                // lineView: {
+                //     selectedLine: ""
+                // }
             },
             created: function () { this.getBasics() },
             methods: {
                 getBasics: function () {
                     const API = "https://api.tfl.gov.uk/"
                     // Fetch tube lines info: https://api.tfl.gov.uk/Line/Mode/tube
-                    fetch(API + "Line/Mode/tube", {
+                    // fetch(API + "Line/Mode/tube", {
+                    //     method: "get"
+                    // }).then(response => response.json())
+                    //     .then(json => { this.linesList = json })
+                },
+                vehicleIdQuery: function () {
+                    const API = "https://api.tfl.gov.uk/"
+                    // show loading spinner
+                    this.vehicleIdView.loading = true;
+                    // Fetch vehicle Id: /Vehicle/{ids}/Arrivals
+                    fetch(API + "Vehicle/" + this.vehicleIdView.enteredId + "/Arrivals", {
                         method: "get"
                     }).then(response => response.json())
-                        .then(json => { this.linesList = json })
-                },
-
+                        .then(json => {
+                            this.vehicleIdView.results = json;
+                            this.vehicleIdView.loading = false;
+                        })
+                }
             }
         })
     </script>
