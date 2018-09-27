@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
-    <title>Tube Telescope</title>
+    <title>TfL Telescope</title>
     <!-- Vue.js development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- Vue.js production version, optimized for size and speed -->
@@ -31,6 +31,10 @@
         <!-- Top Bar -->
         <md-toolbar id="top-bar">
             <h3 class="md-title" style="flex: 1">TfL Telescope</h3>
+            <md-button href="https://buymeacoff.ee/dtylam" target="_blank" class="md-icon-button">
+                <md-icon>favorite_border</md-icon>
+            </md-button>
+            <span>  |  </span>
             <md-button @click="vehicleIdQuery()" class="md-icon-button">
                 <md-icon>refresh</md-icon>
             </md-button>
@@ -90,7 +94,7 @@
                         <md-card v-for="r in lineView.results">
                             <md-card-header>
                                 <div class="md-title">{{r[0].vehicleId}}: {{r[0].currentLocation}}</div>
-                                <div class="md-subhead">{{r[0].lineName}} Line towards {{r[0].towards}}</div>
+                                <div class="md-subheading">{{r[0].lineName}} Line towards {{r[0].towards}}</div>
                             </md-card-header>
                             <md-card-content>
                                 <div v-for="e in r">
