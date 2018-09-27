@@ -40,12 +40,12 @@
 }
 
 .search-space{
-    width: 66%;
+    width: 60vw;
     float: left;
 }
 
 .go-button{
-    width: 32%;
+    width: 32vw;
     float: right;
     min-height: 44px;
 }
