@@ -51,8 +51,8 @@
                 </md-field>
                 <md-button @click="vehicleIdQuery()" class="md-raised md-primary fullwidth">Find</md-button>
                 <div class="results md-scrollbar">
-                    <div v-if="vehicleIdView.loading">
-                        <md-progress-spinner class="md-accent" md-mode="indeterminate"></md-progress-spinner>
+                    <div v-if="vehicleIdView.loading" class="spinner-host">
+                        <md-progress-spinner class="md-accent my-spinner" md-mode="indeterminate"></md-progress-spinner>
                     </div>
                     <div v-else>
                         <md-card v-for="r in vehicleIdView.results">
@@ -82,10 +82,10 @@
             </div> -->
             <!-- lineView -->
             <div v-else id="lineView">
-                <md-autocomplete class="fullwidth" md-layout="box" v-model="lineView.selectedLine" :md-options="linesList.map(line => line.id)">
+                <md-autocomplete class="search-space" md-layout="box" v-model="lineView.selectedLine" :md-options="linesList.map(line => line.id)">
                     <label>Line</label>
                 </md-autocomplete>
-                <md-button @click="lineArrivalsQuery()" class="md-raised md-primary fullwidth">Load</md-button>
+                <md-button @click="lineArrivalsQuery()" class="md-raised md-primary go-button">Load</md-button>
                 <div class="results md-scrollbar">
                     <div v-if="lineView.loading">
                         <md-progress-spinner class="md-accent" md-mode="indeterminate"></md-progress-spinner>
