@@ -40,18 +40,17 @@
 }
 
 .search-space{
-    width: 65%;
+    width: 66%;
     float: left;
 }
 
 .go-button{
-    width: 30%;
+    width: 32%;
     float: right;
+    min-height: 44px;
 }
 
 .spinner-host{
-    width: 80vh;
-    height: 30vh;
     display: table;
 }
 

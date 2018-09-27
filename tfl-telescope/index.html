@@ -43,16 +43,16 @@
         <div id="page">
             <!-- vehicleIdView -->
             <div v-if="focus == 0" id="vehicleIdView">
-                <md-field md-clearable>
+                <md-field md-clearable class="search-space">
                     <md-icon>search</md-icon>
                     <label>Vehicle ID</label>
                     <md-input v-model="vehicleIdView.enteredId" maxlength="7"></md-input>
                     <!-- <span class="md-error">Vehicle ID is a required input</span> -->
                 </md-field>
-                <md-button @click="vehicleIdQuery()" class="md-raised md-primary fullwidth">Find</md-button>
+                <md-button @click="vehicleIdQuery()" class="md-raised md-primary go-button">Find</md-button>
                 <div class="results md-scrollbar">
-                    <div v-if="vehicleIdView.loading" class="spinner-host">
-                        <md-progress-spinner class="md-accent my-spinner" md-mode="indeterminate"></md-progress-spinner>
+                    <div v-if="vehicleIdView.loading">
+                        <md-progress-spinner class="md-accent" md-mode="indeterminate"></md-progress-spinner>
                     </div>
                     <div v-else>
                         <md-card v-for="r in vehicleIdView.results">
