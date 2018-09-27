@@ -53,12 +53,17 @@
                     <div v-else>
                         <md-card v-for="r in vehicleIdView.results">
                             <md-card-header>
-                                <div class="md-title">{{r.vehicleId}}: {{r.currentLocation}}</div>
-                                <div class="md-subhead">{{r.lineName}} Line towards {{r.towards}}</div>
+                                <div class="md-title">{{r[0].vehicleId}}: {{r[0].currentLocation}}</div>
+                                <div class="md-subheading md-primary">{{r[0].lineName}} Line towards {{r[0].towards}}</div>
                             </md-card-header>
                             <md-card-content>
-                                <p><b>Approaching:</b> {{r.stationName}} ({{r.platformName}})</p>
-                                <p><b>timeToStation:</b> {{timeConversion(r.timeToStation)}}</p>
+                                <div v-for="e in r">
+                                    <md-divider></md-divider>
+                                    <p>{{e.stationName}}
+                                        <span class="md-body-2" style="float: right;">{{timeConversion(e.timeToStation)}}</span>
+                                        <br />
+                                        <span class="md-caption">{{e.platformName}}</span></p>
+                                </div>
                             </md-card-content>
                         </md-card>
                         <span v-if="vehicleIdView.error" class="md-error">API error.</span>
@@ -84,12 +89,17 @@
                     <div v-else>
                         <md-card v-for="r in lineView.results">
                             <md-card-header>
-                                <div class="md-title">{{r.vehicleId}}: {{r.currentLocation}}</div>
-                                <div class="md-subhead">{{r.lineName}} Line towards {{r.towards}}</div>
+                                <div class="md-title">{{r[0].vehicleId}}: {{r[0].currentLocation}}</div>
+                                <div class="md-subhead">{{r[0].lineName}} Line towards {{r[0].towards}}</div>
                             </md-card-header>
                             <md-card-content>
-                                <p><b>Approaching:</b> {{r.stationName}} ({{r.platformName}})</p>
-                                <p><b>timeToStation:</b> {{timeConversion(r.timeToStation)}}</p>
+                                <div v-for="e in r">
+                                    <md-divider></md-divider>
+                                    <p>{{e.stationName}}
+                                        <span class="md-body-2" style="float: right;">{{timeConversion(e.timeToStation)}}</span>
+                                        <br />
+                                        <span class="md-caption">{{e.platformName}}</span></p>
+                                </div>
                             </md-card-content>
                         </md-card>
                         <span v-if="lineView.error" class="md-error">API error.</span>
@@ -157,8 +167,16 @@
                         method: "get"
                     }).then(response => response.json())
                         .then(json => {
-                            this.vehicleIdView.results = json;
+                            var sorted = json.sort(function (r1, r2) {
+                                // Ascending: first timeToStation less than second timeToStation
+                                // if (r1.lineId === r2.lineId) 
+                                return r1.timeToStation - r2.timeToStation;
+                                // Ascending: first lineid less than second lineid
+                                // return r1.lineId < r2.lineId ? -1 : r1.lineId > r2.lineId ? 1 : 0;
+                            })
+                            this.vehicleIdView.results = Object.values(this.groupBy(sorted, 'lineId'));
                             this.vehicleIdView.loading = false;
+                            this.vehicleIdView.error = false;
                         }).catch(error => {
                             this.vehicleIdView.error = true;
                         });
@@ -167,13 +185,21 @@
                     const API = "https://api.tfl.gov.uk/"
                     // show loading spinner
                     this.lineView.loading = true;
+                    if (this.lineView.selectedLine == "") return
                     // Fetch line arrivals: /line/{line Id}/arrivals
                     fetch(API + "line/" + this.lineView.selectedLine + "/Arrivals", {
                         method: "get"
                     }).then(response => response.json())
                         .then(json => {
-                            this.lineView.results = json;
+                            var sorted = json.sort(function (r1, r2) {
+                                // Ascending: first timeToStation less than second timeToStation
+                                if (r1.vehicleId === r2.vehicleId) return r1.timeToStation - r2.timeToStation;
+                                // Ascending: first vehicleId less than second vehicleId
+                                return r1.vehicleId - r2.vehicleId;
+                            })
+                            this.lineView.results = Object.values(this.groupBy(sorted, 'vehicleId'));;
                             this.lineView.loading = false;
+                            this.vehicleIdView.error = false;
                         }).catch(error => {
                             this.lineView.error = true;
                         });
@@ -181,8 +207,17 @@
                 timeConversion: function (timeInSec) {
                     var min = Math.floor(timeInSec / 60);
                     var sec = timeInSec - min * 60;
-                    if (min == 0) return sec + "s"
-                    else return min + "m " + sec + "s"
+                    if (min == 0) { return sec + "s" }
+                    else {
+                        // if (sec < 10) sec = "0" + sec
+                        return min + "m " + sec + "s"
+                    }
+                },
+                groupBy: function (xs, key) {
+                    return xs.reduce(function (rv, x) {
+                        (rv[x[key]] = rv[x[key]] || []).push(x);
+                        return rv;
+                    }, {});
                 }
             }
         })
