@@ -39,9 +39,6 @@
         <div id="page">
             <!-- vehicleIdView -->
             <div v-if="focus == 0" id="vehicleIdView">
-                <!-- <md-autocomplete class="fullwidth" md-layout="box" v-model="vehicleIdView.selectedLine" :md-options="linesList.map(line => line.name)">
-                    <label>Line</label>
-                </md-autocomplete> -->
                 <md-field md-clearable>
                     <md-icon>search</md-icon>
                     <label>Vehicle ID</label>
@@ -64,9 +61,7 @@
                                 <p><b>timeToStation:</b> {{timeConversion(r.timeToStation)}}</p>
                             </md-card-content>
                         </md-card>
-                        <span v-if="vehicleIdView.error" class="md-error">API error: Tube line and Vehicle ID are
-                            required
-                            inputs.</span>
+                        <span v-if="vehicleIdView.error" class="md-error">API error.</span>
                     </div>
                 </div>
             </div>
@@ -77,17 +72,36 @@
                 </md-autocomplete>
             </div> -->
             <!-- lineView -->
-            <!-- <div v-else id="lineView">
-                <md-autocomplete class="fullwidth" md-layout="box" v-model="lineView.selectedLine" :md-options="linesList.map(line => line.name)">
+            <div v-else id="lineView">
+                <md-autocomplete class="fullwidth" md-layout="box" v-model="lineView.selectedLine" :md-options="linesList.map(line => line.id)">
                     <label>Line</label>
                 </md-autocomplete>
-            </div> -->
+                <md-button @click="lineArrivalsQuery()" class="md-raised md-primary fullwidth">Load</md-button>
+                <div class="results md-scrollbar">
+                    <div v-if="lineView.loading">
+                        <md-progress-spinner class="md-accent" md-mode="indeterminate"></md-progress-spinner>
+                    </div>
+                    <div v-else>
+                        <md-card v-for="r in lineView.results">
+                            <md-card-header>
+                                <div class="md-title">{{r.vehicleId}}: {{r.currentLocation}}</div>
+                                <div class="md-subhead">{{r.lineName}} Line towards {{r.towards}}</div>
+                            </md-card-header>
+                            <md-card-content>
+                                <p><b>Approaching:</b> {{r.stationName}} ({{r.platformName}})</p>
+                                <p><b>timeToStation:</b> {{timeConversion(r.timeToStation)}}</p>
+                            </md-card-content>
+                        </md-card>
+                        <span v-if="lineView.error" class="md-error">API error.</span>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- Bottom Bar -->
         <md-bottom-bar id="bottom-bar">
             <md-bottom-bar-item @click="focus = 0" md-label="By Vehicle ID" md-icon="directions_subway"></md-bottom-bar-item>
             <!-- <md-bottom-bar-item @click="focus = 1" md-label="By Station" md-icon="departure_board"></md-bottom-bar-item> -->
-            <!-- <md-bottom-bar-item @click="focus = 2" md-label="By Line" md-icon="line_weight"></md-bottom-bar-item> -->
+            <md-bottom-bar-item @click="focus = 2" md-label="By Line" md-icon="line_weight"></md-bottom-bar-item>
         </md-bottom-bar>
     </div>
 
@@ -100,45 +114,69 @@
                 // Focus: which view is chosen at bottom bar:
                 // 0: by station; 1: by vehicleID; 2: by line
                 focus: 0,
-                // linesList: [],
+                linesList: [],
                 // stationsList: [],
                 // Views: the objects containing data for a view
                 // stationView: {
 
                 // },
                 vehicleIdView: {
-                    // selectedLine: "",
                     enteredId: "",
                     loading: false,
                     results: [],
                     error: false
                 },
-                // lineView: {
-                //     selectedLine: ""
-                // }
+                lineView: {
+                    selectedLine: "",
+                    loading: false,
+                    results: [],
+                    error: false
+                }
             },
             created: function () { this.getBasics() },
             methods: {
                 getBasics: function () {
                     const API = "https://api.tfl.gov.uk/"
                     // Fetch tube lines info: https://api.tfl.gov.uk/Line/Mode/tube
-                    // fetch(API + "Line/Mode/tube", {
-                    //     method: "get"
-                    // }).then(response => response.json())
-                    //     .then(json => { this.linesList = json })
+                    fetch(API + "Line/Mode/tube", {
+                        method: "get"
+                    }).then(response => response.json())
+                        .then(json => { this.linesList = json })
                 },
                 vehicleIdQuery: function () {
                     const API = "https://api.tfl.gov.uk/"
                     // show loading spinner
                     this.vehicleIdView.loading = true;
-                    // Fetch vehicle Id: /Vehicle/{ids}/Arrivals
+                    // fix vehicle ID if lower than 100
+                    var len = this.vehicleIdView.enteredId.length;
+                    if (len == 0) return
+                    else if (len == 1) this.vehicleIdView.enteredId = "00" + this.vehicleIdView.enteredId
+                    else if (len == 2) this.vehicleIdView.enteredId = "0" + this.vehicleIdView.enteredId
+                    // Fetch vehicle status: /Vehicle/{ids}/Arrivals
                     fetch(API + "Vehicle/" + this.vehicleIdView.enteredId + "/Arrivals", {
                         method: "get"
                     }).then(response => response.json())
                         .then(json => {
                             this.vehicleIdView.results = json;
                             this.vehicleIdView.loading = false;
-                        })
+                        }).catch(error => {
+                            this.vehicleIdView.error = true;
+                        });
+                },
+                lineArrivalsQuery: function () {
+                    const API = "https://api.tfl.gov.uk/"
+                    // show loading spinner
+                    this.lineView.loading = true;
+                    // Fetch line arrivals: /line/{line Id}/arrivals
+                    fetch(API + "line/" + this.lineView.selectedLine + "/Arrivals", {
+                        method: "get"
+                    }).then(response => response.json())
+                        .then(json => {
+                            this.lineView.results = json;
+                            this.lineView.loading = false;
+                        }).catch(error => {
+                            this.lineView.error = true;
+                        });
                 },
                 timeConversion: function (timeInSec) {
                     var min = Math.floor(timeInSec / 60);
