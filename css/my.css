@@ -1,3 +1,7 @@
-div .card-content{
+div .card-content {
   background-color: grey;
+}
+
+i .fa-flex {
+  size: 100%;
 }
