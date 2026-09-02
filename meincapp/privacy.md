@@ -113,7 +113,7 @@ We may periodically update our Privacy Policy or Terms of Use. Any changes will 
 ## 8. Summary of App Store URLs
 
 For reference and App Store Connect review:
-- **Privacy Policy URL:** `https://dtylam.github.io/meincapp/privacy.html` (or `https://dtylam.github.io/meincapp/`)
-- **Support URL:** `https://dtylam.github.io/meincapp/` (or `https://dtylam.github.io/meincapp/privacy.html`)
+- **Privacy Policy URL:** `https://dtylam.github.io/meincapp/privacy.html`
+- **Support URL:** `https://dtylam.github.io/meincapp/privacy.html`
 - **Apple EULA:** `https://www.apple.com/legal/internet-services/itunes/dev/stdeula/`
 - **Apple Refund Portal:** `https://reportaproblem.apple.com`
